@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<!-- Autor: Cristian David Peña Saavedra -->
+<!-- Vista principal: Formulario de Registro de Aspirante Universitario -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="jakarta.faces.passthrough">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro de Aspirante – U. Distrital</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <style>
+        :root {
+            --ud-verde:   #006341;
+            --ud-verde2:  #004d32;
+            --ud-dorado:  #c8a000;
+            --ud-gris:    #f4f6f8;
+        }
+
+        body {
+            background-color: var(--ud-gris);
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .ud-header {
+            background: linear-gradient(135deg, var(--ud-verde) 0%, var(--ud-verde2) 100%);
+            color: white;
+            padding: 18px 0 14px;
+            border-bottom: 4px solid var(--ud-dorado);
+        }
+        .ud-header h1 { font-size: 1.5rem; margin: 0; font-weight: 700; }
+        .ud-header p  { font-size: 0.85rem; margin: 0; opacity: 0.85; }
+        .ud-badge {
+            background: var(--ud-dorado);
+            color: #000;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .card-form {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+        }
+        .card-form .card-header {
+            background: var(--ud-verde);
+            color: white;
+            border-radius: 12px 12px 0 0 !important;
+            padding: 14px 20px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        label.form-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--ud-verde);
+            box-shadow: 0 0 0 0.2rem rgba(0,99,65,0.2);
+        }
+
+        .btn-registrar {
+            background: var(--ud-verde);
+            border-color: var(--ud-verde);
+            color: white;
+            font-weight: 600;
+            padding: 10px 28px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .btn-registrar:hover { background: var(--ud-verde2); color: white; }
+
+        .btn-limpiar {
+            background: white;
+            border: 2px solid var(--ud-verde);
+            color: var(--ud-verde);
+            font-weight: 600;
+            padding: 10px 28px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .btn-limpiar:hover {
+            background: var(--ud-verde);
+            color: white;
+        }
+
+        .link-admin {
+            color: var(--ud-dorado);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .link-admin:hover { color: #fff; text-decoration: underline; }
+
+        .ud-error {
+            color: #dc3545;
+            font-size: 0.8rem;
+            margin-top: 2px;
+            display: block;
+        }
+
+        footer {
+            background: var(--ud-verde2);
+            color: rgba(255,255,255,0.85);
+            font-size: 0.82rem;
+            padding: 18px 0;
+            margin-top: auto;
+            border-top: 3px solid var(--ud-dorado);
+        }
+        footer strong { color: var(--ud-dorado); }
+        footer .footer-sep { color: var(--ud-dorado); margin: 0 6px; }
+
+        .required-star { color: #dc3545; }
+    </style>
+</h:head>
+
+<h:body>
+
+<header class="ud-header">
+    <div class="container d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <div>
+            <h1><i class="bi bi-mortarboard-fill me-2"></i>Sistema de Registro de Aspirantes</h1>
+            <p>Universidad Distrital Francisco José De Caldas</p>
+        </div>
+        <div class="text-end">
+            <span class="ud-badge">2026</span><br/>
+            <h:link outcome="listado" styleClass="link-admin mt-1 d-inline-block">
+                <i class="bi bi-table me-1"></i>Ver listado de aspirantes
+            </h:link>
+        </div>
+    </div>
+</header>
+
+<div class="container mt-3">
+    <h:messages globalOnly="true" layout="table" styleClass="alert alert-danger" />
+</div>
+
+<main class="container my-4 flex-grow-1">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+
+            <div class="card card-form">
+                <div class="card-header">
+                    <i class="bi bi-person-plus-fill me-2"></i>Formulario de Registro
+                </div>
+                <div class="card-body p-4">
+
+                    <p class="text-muted mb-4" style="font-size:0.85rem;">
+                        Complete todos los campos marcados con
+                        <span class="required-star">*</span> para registrar su solicitud.
+                    </p>
+
+                    <h:form id="frmRegistro">
+
+                        <div class="mb-3">
+                            <label for="identificacion" class="form-label">
+                                Número de Identificación <span class="required-star">*</span>
+                            </label>
+                            <h:inputText id="identificacion"
+                                         value="#{aspiranteBean.aspirante.identificacion}"
+                                         styleClass="form-control"
+                                         maxlength="20"
+                                         required="true"
+                                         requiredMessage="La identificación es obligatoria."
+                                         validatorMessage="Solo se permiten números (máx. 20 dígitos).">
+                                <f:validateRegex pattern="[0-9]{1,20}" />
+                            </h:inputText>
+                            <h:message for="identificacion" styleClass="ud-error" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="nombres" class="form-label">
+                                Nombres <span class="required-star">*</span>
+                            </label>
+                            <h:inputText id="nombres"
+                                         value="#{aspiranteBean.aspirante.nombres}"
+                                         styleClass="form-control"
+                                         maxlength="60"
+                                         required="true"
+                                         requiredMessage="El nombre es obligatorio."
+                                         validatorMessage="Mínimo 2 caracteres, solo letras y espacios.">
+                                <f:validateRegex pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,60}" />
+                            </h:inputText>
+                            <h:message for="nombres" styleClass="ud-error" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="apellidos" class="form-label">
+                                Apellidos <span class="required-star">*</span>
+                            </label>
+                            <h:inputText id="apellidos"
+                                         value="#{aspiranteBean.aspirante.apellidos}"
+                                         styleClass="form-control"
+                                         maxlength="60"
+                                         required="true"
+                                         requiredMessage="Los apellidos son obligatorios."
+                                         validatorMessage="Mínimo 2 caracteres, solo letras y espacios.">
+                                <f:validateRegex pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,60}" />
+                            </h:inputText>
+                            <h:message for="apellidos" styleClass="ud-error" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="correo" class="form-label">
+                                Correo Electrónico <span class="required-star">*</span>
+                            </label>
+                            <h:inputText id="correo"
+                                         value="#{aspiranteBean.aspirante.correo}"
+                                         styleClass="form-control"
+                                         maxlength="100"
+                                         required="true"
+                                         requiredMessage="El correo es obligatorio."
+                                         validatorMessage="Ingrese un correo válido (ej: nombre@dominio.com).">
+                                <f:validateRegex pattern="^[\w\.\-]+@[\w\.\-]+\.[a-zA-Z]{2,}$" />
+                            </h:inputText>
+                            <h:message for="correo" styleClass="ud-error" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label">
+                                Teléfono <span class="required-star">*</span>
+                            </label>
+                            <h:inputText id="telefono"
+                                         value="#{aspiranteBean.aspirante.telefono}"
+                                         styleClass="form-control"
+                                         maxlength="15"
+                                         required="true"
+                                         requiredMessage="El teléfono es obligatorio."
+                                         validatorMessage="Solo dígitos, entre 7 y 15 números.">
+                                <f:validateRegex pattern="[0-9]{7,15}" />
+                            </h:inputText>
+                            <h:message for="telefono" styleClass="ud-error" />
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="programa" class="form-label">
+                                Programa Académico de Interés <span class="required-star">*</span>
+                            </label>
+                            <h:selectOneMenu id="programa"
+                                             value="#{aspiranteBean.aspirante.programaAcademico}"
+                                             styleClass="form-select"
+                                             required="true"
+                                             requiredMessage="Debe seleccionar un programa académico.">
+                                <f:selectItem itemValue=""
+                                              itemLabel="-- Seleccione un programa --"
+                                              noSelectionOption="true" />
+                                <f:selectItems value="#{aspiranteBean.programas}"
+                                               var="prog"
+                                               itemValue="#{prog}"
+                                               itemLabel="#{prog}" />
+                            </h:selectOneMenu>
+                            <h:message for="programa" styleClass="ud-error" />
+                        </div>
+
+                        <!-- ── Botones ── -->
+                        <div class="d-flex gap-3 justify-content-end flex-wrap">
+                            <h:commandButton value="Limpiar"
+                                             action="#{aspiranteBean.limpiarFormulario}"
+                                             immediate="true"
+                                             styleClass="btn btn-limpiar">
+                                <f:ajax render="frmRegistro" />
+                            </h:commandButton>
+
+                            <h:commandButton value="Registrar Aspirante"
+                                             action="#{aspiranteBean.registrarAspirante}"
+                                             styleClass="btn btn-registrar">
+                                <f:ajax execute="@form" render="@form" />
+                            </h:commandButton>
+                        </div>
+
+                    </h:form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container text-center">
+        <div class="mb-1">
+            <strong>Cristian David Peña Saavedra</strong>
+            <span class="footer-sep">|</span>
+            Programación Avanzada — Noé Arcos Muñoz
+            <span class="footer-sep">|</span>
+            Grupo 302
+        </div>
+        <div>
+            Universidad Distrital Francisco José De Caldas
+            <span class="footer-sep">|</span>
+            2026
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</h:body>
+</html>

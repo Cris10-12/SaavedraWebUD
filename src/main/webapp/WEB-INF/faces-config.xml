@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Autor: Cristian David Peña Saavedra -->
+
+<faces-config
+    xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    version="4.0">
+
+    
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>listado</from-outcome>
+            <to-view-id>/listado.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+    
+    <navigation-rule>
+        <from-view-id>/listado.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>
