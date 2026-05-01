@@ -1,143 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<!-- Autor: Cristian David Peña Saavedra -->
-<!-- Vista Administrador: Listado de Aspirantes Registrados -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core"
       xmlns:c="jakarta.tags.core">
 
 <h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Listado de Aspirantes – U. Distrital</title>
 
+    <!-- Bootstrap -->
     <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-    <!-- Bootstrap Icons -->
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+
     <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
 
-    <style>
-        :root {
-            --ud-verde:  #006341;
-            --ud-verde2: #004d32;
-            --ud-dorado: #c8a000;
-            --ud-gris:   #f4f6f8;
-        }
-
-        body {
-            background-color: var(--ud-gris);
-            font-family: 'Segoe UI', sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .ud-header {
-            background: linear-gradient(135deg, var(--ud-verde) 0%, var(--ud-verde2) 100%);
-            color: white;
-            padding: 18px 0 14px;
-            border-bottom: 4px solid var(--ud-dorado);
-        }
-        .ud-header h1 { font-size: 1.5rem; margin: 0; font-weight: 700; }
-        .ud-header p  { font-size: 0.85rem; margin: 0; opacity: 0.85; }
-        .ud-badge {
-            background: var(--ud-dorado);
-            color: #000;
-            border-radius: 4px;
-            padding: 2px 8px;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-
-        .card-tabla {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.10);
-        }
-        .card-tabla .card-header {
-            background: var(--ud-verde);
-            color: white;
-            border-radius: 12px 12px 0 0 !important;
-            padding: 14px 20px;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .tabla-aspirantes thead {
-            background: var(--ud-verde2);
-            color: white;
-        }
-        .tabla-aspirantes thead th {
-            font-weight: 600;
-            font-size: 0.85rem;
-            letter-spacing: 0.03em;
-            padding: 12px 10px;
-            border: none;
-        }
-        .tabla-aspirantes tbody tr:hover { background: rgba(0,99,65,0.06); }
-        .tabla-aspirantes tbody td {
-            padding: 10px 10px;
-            font-size: 0.88rem;
-            vertical-align: middle;
-        }
-
-        .badge-programa {
-            background: rgba(0,99,65,0.12);
-            color: var(--ud-verde2);
-            border-radius: 20px;
-            padding: 4px 10px;
-            font-size: 0.78rem;
-            font-weight: 600;
-        }
-
-        .stat-box {
-            background: var(--ud-verde);
-            color: white;
-            border-radius: 10px;
-            padding: 14px 22px;
-            text-align: center;
-        }
-        .stat-box .num  { font-size: 2.2rem; font-weight: 800; line-height: 1; }
-        .stat-box .lbl  { font-size: 0.78rem; opacity: 0.85; margin-top: 2px; }
-
-        .btn-volver {
-            background: white;
-            border: 2px solid var(--ud-verde);
-            color: var(--ud-verde);
-            font-weight: 600;
-            padding: 9px 24px;
-            border-radius: 8px;
-            transition: all 0.2s;
-            text-decoration: none;
-        }
-        .btn-volver:hover { background: var(--ud-verde); color: white; }
-
-        .alerta-vacio {
-            border-left: 5px solid var(--ud-dorado);
-            background: #fffbee;
-            color: #555;
-        }
-
-        .link-nav {
-            color: var(--ud-dorado);
-            font-weight: 600;
-            text-decoration: none;
-        }
-        .link-nav:hover { color: #fff; text-decoration: underline; }
-
-        footer {
-            background: var(--ud-verde2);
-            color: rgba(255,255,255,0.85);
-            font-size: 0.82rem;
-            padding: 18px 0;
-            margin-top: auto;
-            border-top: 3px solid var(--ud-dorado);
-        }
-        footer strong { color: var(--ud-dorado); }
-        footer .footer-sep { color: var(--ud-dorado); margin: 0 6px; }
-    </style>
+    <!-- TU CSS -->
+    <h:outputStylesheet library="css" name="estilos.css"/>
 </h:head>
 
 <h:body>
@@ -169,10 +50,10 @@
         </div>
         <div class="col d-flex align-items-center">
             <div>
-                <h4 class="fw-bold mb-1" style="color: var(--ud-verde);">
+                <h4 class="fw-bold mb-1">
                     Listado de Aspirantes
                 </h4>
-                <p class="text-muted mb-0" style="font-size:0.88rem;">
+                <p class="text-muted mb-0">
                     Todos los aspirantes que han completado el formulario de registro.
                 </p>
             </div>
@@ -190,24 +71,23 @@
         </div>
         <div class="card-body p-0">
 
-            <!-- ── Caso: sin aspirantes ── -->
+            <!-- Sin aspirantes -->
             <c:if test="#{aspiranteBean.totalAspirantes == 0}">
-                <div class="alert alerta-vacio m-3 rounded-3" role="alert">
+                <div class="alert alerta-vacio m-3 rounded-3">
                     <i class="bi bi-info-circle-fill me-2 text-warning"></i>
                     No hay aspirantes registrados aún.
-                    <h:link outcome="index" style="color: var(--ud-verde); font-weight:600; margin-left:6px;">
+                    <h:link outcome="index" styleClass="ms-2 fw-bold link-nav">
                         Registrar el primero
                     </h:link>
                 </div>
             </c:if>
 
+            <!-- Con aspirantes -->
             <c:if test="#{aspiranteBean.totalAspirantes gt 0}">
                 <div class="table-responsive">
                     <h:dataTable value="#{aspiranteBean.aspirantes}"
                                  var="asp"
-                                 styleClass="table tabla-aspirantes table-striped table-hover mb-0"
-                                 headerClass="table-dark"
-                                 rowClasses="fila-normal">
+                                 styleClass="table tabla-aspirantes table-striped table-hover mb-0">
 
                         <h:column>
                             <f:facet name="header">#</f:facet>
@@ -215,44 +95,32 @@
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">
-                                <i class="bi bi-card-text me-1"></i>Identificación
-                            </f:facet>
+                            <f:facet name="header">Identificación</f:facet>
                             <h:outputText value="#{asp.identificacion}" />
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">
-                                <i class="bi bi-person me-1"></i>Nombres
-                            </f:facet>
+                            <f:facet name="header">Nombres</f:facet>
                             <h:outputText value="#{asp.nombres}" />
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">
-                                <i class="bi bi-person me-1"></i>Apellidos
-                            </f:facet>
+                            <f:facet name="header">Apellidos</f:facet>
                             <h:outputText value="#{asp.apellidos}" />
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">
-                                <i class="bi bi-envelope me-1"></i>Correo
-                            </f:facet>
+                            <f:facet name="header">Correo</f:facet>
                             <h:outputText value="#{asp.correo}" />
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">
-                                <i class="bi bi-telephone me-1"></i>Teléfono
-                            </f:facet>
+                            <f:facet name="header">Teléfono</f:facet>
                             <h:outputText value="#{asp.telefono}" />
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">
-                                <i class="bi bi-book me-1"></i>Programa Académico
-                            </f:facet>
+                            <f:facet name="header">Programa</f:facet>
                             <span class="badge-programa">
                                 <h:outputText value="#{asp.programaAcademico}" />
                             </span>
@@ -269,18 +137,7 @@
 
 <footer>
     <div class="container text-center">
-        <div class="mb-1">
-            <strong>Cristian David Peña Saavedra</strong>
-            <span class="footer-sep">|</span>
-            Programación Avanzada — Noé Arcos Muñoz
-            <span class="footer-sep">|</span>
-            Grupo 302
-        </div>
-        <div>
-            Universidad Distrital Francisco José De Caldas
-            <span class="footer-sep">|</span>
-            2026
-        </div>
+        <strong>Cristian David Peña Saavedra</strong>
     </div>
 </footer>
 

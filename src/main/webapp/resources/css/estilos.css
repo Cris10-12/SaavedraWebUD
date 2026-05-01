@@ -1,0 +1,241 @@
+/* Cristian David Peña Saavedra */
+
+:root {
+    --ud-verde:  #006341;
+    --ud-verde2: #004d32;
+    --ud-dorado: #c8a000;
+    --ud-gris:   #f4f6f8;
+}
+
+/* ─── Base ─── */
+body {
+    background-color: var(--ud-gris);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ─── Header ─── */
+.ud-header {
+    background: linear-gradient(135deg, var(--ud-verde) 0%, var(--ud-verde2) 100%);
+    color: white;
+    padding: 18px 0 14px;
+    border-bottom: 4px solid var(--ud-dorado);
+}
+.ud-header h1 { font-size: 1.5rem; margin: 0; font-weight: 700; }
+.ud-header p  { font-size: 0.85rem; margin: 0; opacity: 0.85; }
+
+.ud-badge {
+    background: var(--ud-dorado);
+    color: #000;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* ─── Links de navegación ─── */
+.link-admin,
+.link-nav {
+    color: var(--ud-dorado);
+    font-weight: 600;
+    text-decoration: none;
+}
+.link-admin:hover,
+.link-nav:hover { color: #fff; text-decoration: underline; }
+
+/* ─── Tarjeta Formulario ─── */
+.card-form {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+}
+.card-form .card-header {
+    background: var(--ud-verde);
+    color: white;
+    border-radius: 12px 12px 0 0 !important;
+    padding: 14px 20px;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* ─── Tarjeta Tabla ─── */
+.card-tabla {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+}
+.card-tabla .card-header {
+    background: var(--ud-verde);
+    color: white;
+    border-radius: 12px 12px 0 0 !important;
+    padding: 14px 20px;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* ─── Formulario ─── */
+label.form-label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+}
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--ud-verde);
+    box-shadow: 0 0 0 0.2rem rgba(0,99,65,0.2);
+}
+.required-star { color: #dc3545; }
+.ud-error {
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 2px;
+    display: block;
+}
+
+/* ─── Botones ─── */
+.btn-registrar {
+    background: var(--ud-verde);
+    border-color: var(--ud-verde);
+    color: white;
+    font-weight: 600;
+    padding: 10px 28px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+.btn-registrar:hover { background: var(--ud-verde2); color: white; }
+
+.btn-limpiar {
+    background: white;
+    border: 2px solid var(--ud-verde);
+    color: var(--ud-verde);
+    font-weight: 600;
+    padding: 10px 28px;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+.btn-limpiar:hover { background: var(--ud-verde); color: white; }
+
+.btn-volver {
+    background: white;
+    border: 2px solid var(--ud-verde);
+    color: var(--ud-verde);
+    font-weight: 600;
+    padding: 9px 24px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+.btn-volver:hover { background: var(--ud-verde); color: white; }
+
+/* ─── Tabla de Aspirantes ─── */
+.tabla-aspirantes thead {
+    background: var(--ud-verde2);
+    color: white;
+}
+.tabla-aspirantes thead th {
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    padding: 12px 10px;
+    border: none;
+}
+.tabla-aspirantes tbody tr:hover { background: rgba(0,99,65,0.06); }
+.tabla-aspirantes tbody td {
+    padding: 10px 10px;
+    font-size: 0.88rem;
+    vertical-align: middle;
+}
+.badge-programa {
+    background: rgba(0,99,65,0.12);
+    color: var(--ud-verde2);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+/* ─── Estadísticas ─── */
+.stat-box {
+    background: var(--ud-verde);
+    color: white;
+    border-radius: 10px;
+    padding: 14px 22px;
+    text-align: center;
+}
+.stat-box .num  { font-size: 2.2rem; font-weight: 800; line-height: 1; }
+.stat-box .lbl  { font-size: 0.78rem; opacity: 0.85; margin-top: 2px; }
+
+/* ─── Alerta vacío ─── */
+.alerta-vacio {
+    border-left: 5px solid var(--ud-dorado);
+    background: #fffbee;
+    color: #555;
+}
+
+/* ─── Footer ─── */
+footer {
+    background: var(--ud-verde2);
+    color: rgba(255,255,255,0.85);
+    font-size: 0.82rem;
+    padding: 18px 0;
+    margin-top: auto;
+    border-top: 3px solid var(--ud-dorado);
+}
+footer strong { color: var(--ud-dorado); }
+footer .footer-sep { color: var(--ud-dorado); margin: 0 6px; }
+
+/* ─── CDT – Tarjeta ─── */
+.card-cdt {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+}
+.card-cdt .card-header {
+    background: var(--ud-verde);
+    color: white;
+    border-radius: 12px 12px 0 0 !important;
+    padding: 14px 20px;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* ─── CDT – Resultado ─── */
+.cdt-resultado {
+    background: linear-gradient(135deg, var(--ud-verde) 0%, var(--ud-verde2) 100%);
+    color: white;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 18px;
+}
+.cdt-resultado .cdt-fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    font-size: 0.92rem;
+}
+.cdt-resultado .cdt-fila:last-child { border-bottom: none; }
+.cdt-resultado .cdt-fila .cdt-lbl { opacity: 0.85; }
+.cdt-resultado .cdt-fila .cdt-val { font-weight: 700; font-size: 1rem; }
+.cdt-resultado .cdt-titulo {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+    margin-bottom: 10px;
+}
+.cdt-neto {
+    background: var(--ud-dorado);
+    color: #000;
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 800;
+    font-size: 1.05rem;
+}

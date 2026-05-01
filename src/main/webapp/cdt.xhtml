@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<!-- Autor: Cristian David Peña Saavedra -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador CDT – U. Distrital</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="#{request.contextPath}/resources/css/estilos.css" />
+</h:head>
+
+<h:body>
+
+<header class="ud-header">
+    <div class="container d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <div>
+            <h1><i class="bi bi-calculator-fill me-2"></i>Simulador de CDT</h1>
+            <p>Universidad Distrital Francisco José De Caldas</p>
+        </div>
+        <div class="text-end">
+            <span class="ud-badge">CDT</span><br/>
+            <h:link outcome="index" styleClass="link-admin mt-1 d-inline-block">
+                <i class="bi bi-person-plus me-1"></i>Registro de Aspirantes
+            </h:link>
+            <span style="margin: 0 8px; color: rgba(255,255,255,0.35);">|</span>
+            <h:link outcome="listado" styleClass="link-admin mt-1 d-inline-block">
+                <i class="bi bi-table me-1"></i>Ver listado
+            </h:link>
+        </div>
+    </div>
+</header>
+
+<main class="container my-4 flex-grow-1">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+
+            <div class="card card-cdt">
+                <div class="card-header">
+                    <i class="bi bi-bank me-2"></i>Datos para el Simulador CDT
+                </div>
+                <div class="card-body p-4">
+
+                    <p class="text-muted mb-4" style="font-size:0.85rem;">
+                        Ingrese los datos de su inversión para calcular la ganancia estimada.
+                    </p>
+
+                    <h:form id="frmCdt">
+
+                        <div class="mb-3">
+                            <label for="inversion" class="form-label">
+                                Inversión ($) <span class="required-star">*</span>
+                            </label>
+                            <h:inputText id="inversion"
+                                         value="#{cdt.inversion}"
+                                         styleClass="form-control"
+                                         required="true"
+                                         requiredMessage="La inversión es obligatoria.">
+                                <f:convertNumber maxFractionDigits="2" />
+                            </h:inputText>
+                            <h:message for="inversion" styleClass="ud-error" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="interes" class="form-label">
+                                Interés (% E.A.) <span class="required-star">*</span>
+                            </label>
+                            <h:inputText id="interes"
+                                         value="#{cdt.interes}"
+                                         styleClass="form-control"
+                                         required="true"
+                                         requiredMessage="El interés es obligatorio." />
+                            <h:message for="interes" styleClass="ud-error" />
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="plazo" class="form-label">
+                                Plazo (días) <span class="required-star">*</span>
+                            </label>
+                            <h:inputText id="plazo"
+                                         value="#{cdt.plazo}"
+                                         styleClass="form-control"
+                                         required="true"
+                                         requiredMessage="El plazo es obligatorio." />
+                            <h:message for="plazo" styleClass="ud-error" />
+                        </div>
+
+                        <div class="d-grid">
+                            <h:commandButton value="Calcular Ganancia"
+                                             action="#{cdt.calcular}"
+                                             styleClass="btn btn-registrar">
+                                <f:ajax execute="@form" render="@form" />
+                            </h:commandButton>
+                        </div>
+
+                        <h:panelGroup rendered="#{cdt.ganancia > 0}" layout="block">
+                            <div class="cdt-resultado mt-4">
+                                <div class="cdt-titulo">
+                                    <i class="bi bi-bar-chart-fill me-1"></i>Resultados de la Simulación
+                                </div>
+
+                                <div class="cdt-fila">
+                                    <span class="cdt-lbl">Ganancia bruta</span>
+                                    <span class="cdt-val">
+                                        <h:outputText value="#{cdt.ganancia}">
+                                            <f:convertNumber type="currency" currencySymbol="$"
+                                                             maxFractionDigits="2" groupingUsed="true" />
+                                        </h:outputText>
+                                    </span>
+                                </div>
+
+                                <div class="cdt-fila">
+                                    <span class="cdt-lbl">Impuesto (4%)</span>
+                                    <span class="cdt-val">
+                                        <h:outputText value="#{cdt.impuesto}">
+                                            <f:convertNumber type="currency" currencySymbol="$"
+                                                             maxFractionDigits="2" groupingUsed="true" />
+                                        </h:outputText>
+                                    </span>
+                                </div>
+
+                                <div class="cdt-fila">
+                                    <span class="cdt-lbl">Ganancia después de impuestos</span>
+                                    <span class="cdt-val">
+                                        <h:outputText value="#{cdt.ganancia - cdt.impuesto}">
+                                            <f:convertNumber type="currency" currencySymbol="$"
+                                                             maxFractionDigits="2" groupingUsed="true" />
+                                        </h:outputText>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="cdt-neto">
+                                <span><i class="bi bi-cash-stack me-2"></i>Valor final al vencimiento</span>
+                                <span>
+                                    <h:outputText value="#{cdt.valorFuturo - cdt.impuesto}">
+                                        <f:convertNumber type="currency" currencySymbol="$"
+                                                         maxFractionDigits="2" groupingUsed="true" />
+                                    </h:outputText>
+                                </span>
+                            </div>
+                        </h:panelGroup>
+
+                    </h:form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container text-center">
+        <div class="mb-1">
+            <strong>Cristian David Peña Saavedra</strong>
+            <span class="footer-sep">|</span>
+            Programación Avanzada — Noé Arcos Muñoz
+            <span class="footer-sep">|</span>
+            Grupo 302
+        </div>
+        <div>
+            Universidad Distrital Francisco José De Caldas
+            <span class="footer-sep">|</span>
+            2026
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</h:body>
+</html>
